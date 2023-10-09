@@ -23,7 +23,7 @@ export default function Form ({genres, keywords}) {
   return (
     <div className="container-fluid inline">
       <form>
-        <div className="checkbox-row">
+        <div className="checkbox-row" key="keywords">
           {keywords.map(x => <span key={x}>
             <input type="checkbox" className="btn-check" id={x} autoComplete="off" />
             <label className="btn btn-outline-primary" htmlFor={x} value={x}>
@@ -33,11 +33,11 @@ export default function Form ({genres, keywords}) {
         </div>
         <br/>
         <br/>
-        <div className="form-floating">
+        <div className="form-floating" key="genres">
           <select className="form-select" id="floatingSelect" aria-label="Floating label select example">
             {genres.map(x => <option value={x}>{x}</option>)}
           </select>
-        <label for="floatingSelect">Genre</label>
+        <label htmlFor="floatingSelect">Genre</label>
         </div>
 
       </form>

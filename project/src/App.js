@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Routes, NavLink, Outlet, useNavigation 
 function App() {
 
   const genres = ["action", "adventure", "comedy", "drama", "fantasy", "horror", "musical", "mystery", "romance", "science-fiction", "sports", "thriller", "western"];
-  const keywords = ["night", "fight", "good", "god", "love", "one", "sex", "secret", "new", "death", "man", "woman", "her", "him", "star", "doctor", "strikes", "show", "play", "girl", "boy", "little", "adventure", "hero", "journey", "epic", "mystery", "romance", "action", "thriller", "suspense", "fantasy", "magic", "war", "sci-fi", "comedy", "drama", "tragedy", "crime", "horror", "legend", "fantasy", "quest", "quest", "legend", "history", "western", "musical", "fantasy", "legend", "time", "space", "future", "past", "present", "battle", "sword", "king", "queen", "prince", "princess", "monster", "zombie", "vampire", "alien", "robot", "detective", "spy", "hero", "villain", "treasure", "curse"];
+  const keywords = ["night", "fight", "good", "god", "love", "one", "sex", "secret", "new", "death", "man", "woman", "her", "him", "star", "doctor", "strikes", "show", "play", "girl", "boy", "little", "adventure", "hero", "journey", "epic", "mystery", "romance", "action", "thriller", "suspense", "magic", "war", "sci-fi", "comedy", "drama", "tragedy", "crime", "horror", "legend", "quest", "history", "western", "musical", "fantasy", "time", "space", "future", "past", "present", "battle", "sword", "king", "queen", "prince", "princess", "monster", "zombie", "vampire", "alien", "robot", "detective", "spy", "villain", "treasure", "curse"];
 
   return(
   <div className="container py-4">
