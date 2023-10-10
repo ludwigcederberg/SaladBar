@@ -105,9 +105,6 @@ export default function Form ({genres, keywords}) {
           <button type='submit' className="btn btn-primary" >Search</button>
         </div>
       </form>
-      <div className="container-fluid inline">
-        {movieTitles ? movieTitles.map(title => <li key={title}>{title}</li>) : <div></div>}
-      </div>
       <br/>
       <div id="" className="row">
       {movieVector.map(x => 
