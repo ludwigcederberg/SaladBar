@@ -1,45 +1,52 @@
+import { useState } from "react"
+
 export default function Form ({genres, keywords}) {
 
-  const numberOfCheckboxes = 16;
-  const checkboxesAndLabels = [];
+  const [chosenWords, setChosenWords] = useState([]);
+  const [genre, setGenre] = useState([]);
 
-  for (let i = 1; i <= numberOfCheckboxes; i++) {
-    const checkboxId = `btn-check-outlined${i}`;
-    const labelFor = `btn-check-outlined${i}`;
-
-    checkboxesAndLabels.push(
-      <span key={i}>
-        <input type="checkbox" className="btn-check" id={checkboxId} autoComplete="off" />
-        <label className="btn btn-outline-primary" htmlFor={labelFor} value={"Keyword " + i}>
-          Keyword {i}
-        </label>
-        {'  '}
-      </span>
-    );
+  const handleBoxChange = (e) => {
+    const {id} = e.target;
+    if (!chosenWords.includes(id)){
+      setChosenWords([...chosenWords, id]);
+    } else {
+      const updatedChosenWords = chosenWords.filter(word => word !== id);
+      setChosenWords(updatedChosenWords);
+    }
   }
 
-  console.log(genres);
+  const handleSelectChange = (e) => {
+    const {value} = e.target;
+    setGenre(value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    
+  }
 
   return (
     <div className="container-fluid inline">
       <form>
         <div className="checkbox-row" key="keywords">
-          {keywords.map(x => <span key={x}>
-            <input type="checkbox" className="btn-check" id={x} autoComplete="off" />
+          {keywords.map((x,i) => <span key={x}>
+            <input type="checkbox" className="btn-check" id={x} i={i} onChange={handleBoxChange} />
             <label className="btn btn-outline-primary" htmlFor={x} value={x}>
               {x}
             </label>
           </span>)}
         </div>
         <br/>
-        <br/>
-        <div className="form-floating" key="genres">
-          <select className="form-select" id="floatingSelect" aria-label="Floating label select example">
+        <div className="form-floating container d-flex align-items-center justify-content-center" key="genres">
+          <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={handleSelectChange}>
             {genres.map(x => <option value={x}>{x}</option>)}
           </select>
         <label htmlFor="floatingSelect">Genre</label>
         </div>
-
+        <br/>
+        <div className="form-floating container d-flex align-items-center justify-content-center" key="submit">
+        <button type='submit' className="btn btn-primary" >Sök</button>
+        </div>
       </form>
     </div>
   )
