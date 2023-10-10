@@ -5,6 +5,7 @@ export default function Form ({genres, keywords}) {
 
   const [chosenWords, setChosenWords] = useState([]);
   const [genre, setGenre] = useState('action');
+  const [movieLength, setMovieLength] = useState(250);
 
   const handleBoxChange = (e) => {
     const {id} = e.target;
@@ -43,9 +44,12 @@ export default function Form ({genres, keywords}) {
             {genres.map(x => <option value={x} key={x}>{x}</option>)}
           </select>
         <label htmlFor="floatingSelect">Genre</label>
+        <br></br>
         </div>
-        <div className="form-floating container d-flex align-items-center justify-content-center" key="range">
-
+        <div >
+          <label for="customRange" class="form-label">Movie length</label>
+          <input type= 'range' min= '0' max= '250' class="form-range" id="customRange1" value= {movieLength} onChange= {(e)=>setMovieLength(e.target.value)}/> 
+          <text> 0 - {movieLength} minutes</text>
         </div>
         <br/>
         <div className="form-floating container d-flex align-items-center justify-content-center" key="submit">
