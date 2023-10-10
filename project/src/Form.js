@@ -26,12 +26,22 @@ export default function Form ({genres, keywords}) {
     setGenre(value);
   }
 
+  function filterAfterSpec(mi){
+    console.log(mi);
+    const sortedAfterTime = mi.map(movie => [movie.Title, movie.Runtime.replace(' min', ''), movie.imdbRating, movie.Genre])
+    .filter(x => parseInt(x[1]) < movieLength)
+    .filter(x => parseInt(x[2]) > rating);
+    //.filter(x => x[3].includes(genre));
+    console.log(sortedAfterTime);
+    return sortedAfterTime;
+
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
     const mi = await (getMovies(chosenWords, genre));
-    const titles = mi.map(x => x.Title);
-    console.log(titles);
-    setMovieTitles(titles);
+    const shortMovies = filterAfterSpec(mi);
+    setMovieTitles(shortMovies.map(x => x[0]));
     
   }
 
@@ -55,15 +65,15 @@ export default function Form ({genres, keywords}) {
         <br></br>
         </div>
         <div >
-          <label class="form-label">Movie length</label>
-          <input type= 'range' min= '0' max= '250' class="form-range" value= {movieLength} onChange= {(e)=>setMovieLength(e.target.value)}/> 
-          <text> 0 - {movieLength} minutes</text>
+          <label className="form-label">Movie length</label>
+          <input type= 'range' min= '0' max= '250' step='5' className="form-range" value= {movieLength} onChange= {(e)=>setMovieLength(e.target.value)}/> 
+          <p> 0 - {movieLength} minutes</p>
         </div>
         <div >
           <br></br>
-          <label class="form-label">IMDb rating</label>
-          <input type= 'range' min= '0' max= '10' class="form-range" value= {rating} onChange= {(e)=>setRating(e.target.value)}/> 
-          <text> {rating} - 10 rating</text>
+          <label className="form-label">IMDb rating</label>
+          <input type= 'range' min= '0' max= '10' step='0.1' className="form-range" value= {rating} onChange= {(e)=>setRating(e.target.value)}/> 
+          <p> {rating} - 10 rating</p>
         </div>
         <br/>
         <div className="form-floating container d-flex align-items-center justify-content-center" key="submit">
