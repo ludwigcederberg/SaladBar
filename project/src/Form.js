@@ -1,9 +1,10 @@
 import { useState } from "react"
+import getMovies from "./fetchMovies";
 
 export default function Form ({genres, keywords}) {
 
   const [chosenWords, setChosenWords] = useState([]);
-  const [genre, setGenre] = useState([]);
+  const [genre, setGenre] = useState('action');
 
   const handleBoxChange = (e) => {
     const {id} = e.target;
@@ -22,12 +23,12 @@ export default function Form ({genres, keywords}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    
+    getMovies(chosenWords, genre);
   }
 
   return (
     <div className="container-fluid inline">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="checkbox-row" key="keywords">
           {keywords.map((x,i) => <span key={x}>
             <input type="checkbox" className="btn-check" id={x} i={i} onChange={handleBoxChange} />
@@ -37,15 +38,18 @@ export default function Form ({genres, keywords}) {
           </span>)}
         </div>
         <br/>
-        <div className="form-floating container d-flex align-items-center justify-content-center" key="genres">
-          <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={handleSelectChange}>
-            {genres.map(x => <option value={x}>{x}</option>)}
+        <div className="form-floating" key="genres">
+          <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={handleSelectChange} key="genreSelect">
+            {genres.map(x => <option value={x} key={x}>{x}</option>)}
           </select>
         <label htmlFor="floatingSelect">Genre</label>
         </div>
+        <div className="form-floating container d-flex align-items-center justify-content-center" key="range">
+
+        </div>
         <br/>
         <div className="form-floating container d-flex align-items-center justify-content-center" key="submit">
-        <button type='submit' className="btn btn-primary" >Sök</button>
+          <button type='submit' className="btn btn-primary" >Sök</button>
         </div>
       </form>
     </div>
