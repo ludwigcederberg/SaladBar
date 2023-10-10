@@ -5,8 +5,10 @@ export default function Form ({genres, keywords}) {
 
   const [chosenWords, setChosenWords] = useState([]);
   const [genre, setGenre] = useState('action');
-  const [movieLength, setMovieLength] = useState(250);
+  const [movieLength, setMovieLength] = useState(125);
+  const [rating, setRating] = useState(5);
   const [movieTitles, setMovieTitles] = useState([]);
+  
 
 
   const handleBoxChange = (e) => {
@@ -53,13 +55,19 @@ export default function Form ({genres, keywords}) {
         <br></br>
         </div>
         <div >
-          <label for="customRange" class="form-label">Movie length</label>
-          <input type= 'range' min= '0' max= '250' class="form-range" id="customRange1" value= {movieLength} onChange= {(e)=>setMovieLength(e.target.value)}/> 
+          <label class="form-label">Movie length</label>
+          <input type= 'range' min= '0' max= '250' class="form-range" value= {movieLength} onChange= {(e)=>setMovieLength(e.target.value)}/> 
           <text> 0 - {movieLength} minutes</text>
+        </div>
+        <div >
+          <br></br>
+          <label class="form-label">IMDb rating</label>
+          <input type= 'range' min= '0' max= '10' class="form-range" value= {rating} onChange= {(e)=>setRating(e.target.value)}/> 
+          <text> {rating} - 10 rating</text>
         </div>
         <br/>
         <div className="form-floating container d-flex align-items-center justify-content-center" key="submit">
-          <button type='submit' className="btn btn-primary" >Sök</button>
+          <button type='submit' className="btn btn-primary" >Search</button>
         </div>
       </form>
       <div className="container-fluid inline">
