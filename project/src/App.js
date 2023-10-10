@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Routes, NavLink, Outlet, useNavigation 
 
 function App() {
 
-  const genres = ["action", "adventure", "comedy", "drama", "fantasy", "horror", "musical", "mystery", "romance", "science-fiction", "sports", "thriller", "western"];
+  const genres = ["Action", "Adventure", "Comedy", "Documentary", "Drama", "Fantasy", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi", "Sports", "Thriller", "Western"];
   const k = [...new Set(tempkeywords)];
   const keywords = chooseRandomWords(k, 28);
 
