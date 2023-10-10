@@ -44,6 +44,10 @@ export default function Form ({genres, keywords}) {
     setMovieTitles(shortMovies ? shortMovies.map(x => x[0]) : []);
   }
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   return (
     <div className="container-fluid inline">
       <form onSubmit={handleSubmit}>
@@ -54,6 +58,10 @@ export default function Form ({genres, keywords}) {
               {x}
             </label>
           </span>)}
+        </div>
+        <br/>
+        <div className="form-floating" key="randomize-button">
+          <button className="btn btn-primary" onClick={refreshPage}>Randomize words!</button>
         </div>
         <br/>
         <div className="form-floating" key="genres">
