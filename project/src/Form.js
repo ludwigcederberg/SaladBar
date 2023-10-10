@@ -1,6 +1,8 @@
 import { useState } from "react"
 import getMovies from "./fetchMovies";
 import RangeSlider from "./RangeSlider";
+import SelectGenre from "./SelectGenre";
+
 
 export default function Form ({genres, keywords}) {
 
@@ -9,7 +11,6 @@ export default function Form ({genres, keywords}) {
   const [movieLength, setMovieLength] = useState(125);
   const [rating, setRating] = useState(5);
   const [movieTitles, setMovieTitles] = useState([]);
-
 
   const handleBoxChange = (e) => {
     const {id} = e.target;
@@ -39,6 +40,7 @@ export default function Form ({genres, keywords}) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    e.target.classList.add("was-validated");
     const mi = await (getMovies(chosenWords, genre));
     const shortMovies = filterAfterSpec(mi);
     setMovieTitles(shortMovies ? shortMovies.map(x => x[0]) : []);
@@ -50,7 +52,7 @@ export default function Form ({genres, keywords}) {
 
   return (
     <div className="container-fluid inline">
-      <form onSubmit={handleSubmit}>
+      <form className="g-3 needs-validation" onSubmit={handleSubmit} noValidate>
         <div className="checkbox-row" key="keywords">
           {keywords.map((x,i) => <span key={x}>
             <input type="checkbox" className="btn-check" id={x} i={i} onChange={handleBoxChange} />
@@ -64,12 +66,9 @@ export default function Form ({genres, keywords}) {
           <button className="btn btn-primary" onClick={refreshPage}>Randomize words!</button>
         </div>
         <br/>
-        <div className="form-floating" key="genres">
-          <select className="form-select" id="floatingSelect" aria-label="Floating label select example" onChange={handleSelectChange} key="genreSelect">
-            {genres.map(x => <option value={x} key={x}>{x}</option>)}
-          </select>
-        <label htmlFor="floatingSelect">Genre</label>
-        <br></br>
+        <div >
+          <SelectGenre id="floatingSelect" label="Choose genre" options={genres} value={genre} onChange={handleSelectChange} errorMessage="Please select a genre" required/>
+          <br></br>
         </div>
         <div >
           <RangeSlider label="Movie length" step={5} min={0} max={250} value={movieLength} onChange={setMovieLength}/>
