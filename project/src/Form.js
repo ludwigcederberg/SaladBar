@@ -6,6 +6,8 @@ export default function Form ({genres, keywords}) {
   const [chosenWords, setChosenWords] = useState([]);
   const [genre, setGenre] = useState('action');
   const [movieLength, setMovieLength] = useState(250);
+  const [movieTitles, setMovieTitles] = useState([]);
+
 
   const handleBoxChange = (e) => {
     const {id} = e.target;
@@ -22,9 +24,13 @@ export default function Form ({genres, keywords}) {
     setGenre(value);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    getMovies(chosenWords, genre);
+    const mi = await (getMovies(chosenWords, genre));
+    const titles = mi.map(x => x.Title);
+    console.log(titles);
+    setMovieTitles(titles);
+    
   }
 
   return (
@@ -56,6 +62,9 @@ export default function Form ({genres, keywords}) {
           <button type='submit' className="btn btn-primary" >Sök</button>
         </div>
       </form>
+      <div className="container-fluid inline">
+        {movieTitles ? movieTitles.map(title => <li key={title}>{title}</li>) : <div></div>}
+      </div>
     </div>
   )
 }
