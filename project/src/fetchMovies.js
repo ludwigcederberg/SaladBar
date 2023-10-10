@@ -1,5 +1,5 @@
 
-  const API_KEY = "13157fdb";
+  const API_KEY = "e99b37a";
 
 
   export default async function getMovies(keywords, genre){
