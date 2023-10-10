@@ -1,5 +1,6 @@
 import { useState } from "react"
 import getMovies from "./fetchMovies";
+import RangeSlider from "./RangeSlider";
 
 export default function Form ({genres, keywords}) {
 
@@ -8,7 +9,6 @@ export default function Form ({genres, keywords}) {
   const [movieLength, setMovieLength] = useState(125);
   const [rating, setRating] = useState(5);
   const [movieTitles, setMovieTitles] = useState([]);
-  
 
 
   const handleBoxChange = (e) => {
@@ -32,7 +32,7 @@ export default function Form ({genres, keywords}) {
     const titles = mi.map(x => x.Title);
     console.log(titles);
     setMovieTitles(titles);
-    
+
   }
 
   return (
@@ -55,17 +55,12 @@ export default function Form ({genres, keywords}) {
         <br></br>
         </div>
         <div >
-          <label class="form-label">Movie length</label>
-          <input type= 'range' min= '0' max= '250' class="form-range" value= {movieLength} onChange= {(e)=>setMovieLength(e.target.value)}/> 
-          <text> 0 - {movieLength} minutes</text>
-        </div>
-        <div >
+          <RangeSlider label="Movie length" step={5} min={0} max={250} value={movieLength} onChange={setMovieLength}/>
+          <p> 0 - {movieLength} minutes</p>
           <br></br>
-          <label class="form-label">IMDb rating</label>
-          <input type= 'range' min= '0' max= '10' class="form-range" value= {rating} onChange= {(e)=>setRating(e.target.value)}/> 
-          <text> {rating} - 10 rating</text>
+          <RangeSlider label="IMDb rating" step={0.1} min={0} max={10} value={rating} onChange={setRating}/>
+          <p> {rating} - 10 rating</p>
         </div>
-        <br/>
         <div className="form-floating container d-flex align-items-center justify-content-center" key="submit">
           <button type='submit' className="btn btn-primary" >Search</button>
         </div>
@@ -74,5 +69,4 @@ export default function Form ({genres, keywords}) {
         {movieTitles ? movieTitles.map(title => <li key={title}>{title}</li>) : <div></div>}
       </div>
     </div>
-  )
-}
+  )}
