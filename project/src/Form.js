@@ -30,8 +30,8 @@ export default function Form ({genres, keywords}) {
     console.log(mi);
     const sortedAfterTime = mi.map(movie => [movie.Title, movie.Runtime.replace(' min', ''), movie.imdbRating, movie.Genre])
     .filter(x => parseInt(x[1]) < movieLength)
-    .filter(x => parseInt(x[2]) > rating);
-    //.filter(x => x[3].includes(genre));
+    .filter(x => parseInt(x[2]) > rating)
+    .filter(x => x[3].includes(genre));
     console.log(sortedAfterTime);
     return sortedAfterTime;
 
@@ -41,8 +41,7 @@ export default function Form ({genres, keywords}) {
     e.preventDefault();
     const mi = await (getMovies(chosenWords, genre));
     const shortMovies = filterAfterSpec(mi);
-    setMovieTitles(shortMovies.map(x => x[0]));
-    
+    setMovieTitles(shortMovies ? shortMovies.map(x => x[0]) : []);
   }
 
   return (
