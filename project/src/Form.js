@@ -11,6 +11,8 @@ export default function Form ({genres, keywords}) {
   const [movieLength, setMovieLength] = useState(125);
   const [rating, setRating] = useState(5);
   const [movieTitles, setMovieTitles] = useState([]);
+  const [videoType, setVideoType] = useState('');
+  const [movieVector, setMovieVector] = useState([]);
 
   const handleBoxChange = (e) => {
     const {id} = e.target;
@@ -29,10 +31,11 @@ export default function Form ({genres, keywords}) {
 
   function filterAfterSpec(mi){
     console.log(mi);
-    const sortedAfterTime = mi.map(movie => [movie.Title, movie.Runtime.replace(' min', ''), movie.imdbRating, movie.Genre])
+    const sortedAfterTime = mi.map(movie => [movie.Title, movie.Runtime.replace(' min', ''), movie.imdbRating, movie.Genre, movie.Type, movie.Poster, movie.Plot])
     .filter(x => parseInt(x[1]) < movieLength)
     .filter(x => parseInt(x[2]) > rating)
-    .filter(x => x[3].includes(genre));
+    .filter(x => x[3].includes(genre))
+    .filter(x => x[4].includes(videoType));
     console.log(sortedAfterTime);
     return sortedAfterTime;
 
@@ -44,6 +47,7 @@ export default function Form ({genres, keywords}) {
     const mi = await (getMovies(chosenWords, genre));
     const shortMovies = filterAfterSpec(mi);
     setMovieTitles(shortMovies ? shortMovies.map(x => x[0]) : []);
+    setMovieVector([...shortMovies]);
   }
 
   function refreshPage() {
@@ -70,7 +74,27 @@ export default function Form ({genres, keywords}) {
           <SelectGenre id="floatingSelect" label="Choose genre" options={genres} value={genre} onChange={handleSelectChange} errorMessage="Please select a genre" required/>
           <br></br>
         </div>
-        <div >
+        <div className="container d-flex align-items-center justify-content-center grid gap-0 column-gap-3">
+          <div className="p-2 g-col-6">
+            <input className="form-check-input" type="radio" name="flexRadioDefault" id="movie" onChange={e => setVideoType('movie')}/>
+            <label className="form-check-label" htmlFor="movie">
+              Movie
+            </label>
+          </div>
+          <div className="p-2 g-col-6">
+            <input className="form-check-input" type="radio" name="flexRadioDefault" id="series" onChange={e => setVideoType('series')}/>
+            <label className="form-check-label" htmlFor="series">
+              Series
+            </label>
+          </div>
+          <div className="p-2 g-col-6">
+            <input className="form-check-input" type="radio" name="flexRadioDefault" id="both" onChange={e => setVideoType('')}/>
+            <label className="form-check-label" htmlFor="both">
+              Both
+            </label>
+          </div>
+        </div>
+        <div>
           <RangeSlider label="Movie length" step={5} min={0} max={250} value={movieLength} onChange={setMovieLength}/>
           <p> 0 - {movieLength} minutes</p>
           <br></br>
@@ -84,5 +108,20 @@ export default function Form ({genres, keywords}) {
       <div className="container-fluid inline">
         {movieTitles ? movieTitles.map(title => <li key={title}>{title}</li>) : <div></div>}
       </div>
+      <br/>
+      <div id="" className="row">
+      {movieVector.map(x => 
+          <div className="col-sm-4">
+            <div className="card" style={{width: '18rem'}} >
+              <img src={x[5]} className="card-img-top" alt={x[0]}/>
+              <div className="card-body">
+                <h5 className="card-title">{x[0]}</h5>
+                <p className="card-text">{x[6]}</p>
+                <a href="#" className="btn btn-primary">Favorite</a>
+              </div>
+            </div>
+            </div>
+           ) }
+        </div>
     </div>
   )}
