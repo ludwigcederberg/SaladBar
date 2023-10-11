@@ -3,6 +3,7 @@ import getMovies from "./fetchMovies";
 import RangeSlider from "./RangeSlider";
 import SelectGenre from "./SelectGenre";
 import { useOutletContext } from "react-router-dom";
+import SelectVideoType from "./SelectVideoType";
 
 
 export default function Form () {
@@ -16,7 +17,7 @@ export default function Form () {
   const [movieLength, setMovieLength] = useState(125);
   const [rating, setRating] = useState(5);
   const [movieTitles, setMovieTitles] = useState([]);
-  const [videoType, setVideoType] = useState('');
+  const [videoType, setVideoType] = useState([]);
   const [movieVector, setMovieVector] = useState([]);
 
   const handleBoxChange = (e) => {
@@ -79,24 +80,9 @@ export default function Form () {
           <br></br>
         </div>
         <div className="container d-flex align-items-center justify-content-center grid gap-0 column-gap-3">
-          <div className="p-2 g-col-6">
-            <input className="form-check-input" type="radio" name="flexRadioDefault" id="movie" onChange={e => setVideoType('movie')}/>
-            <label className="form-check-label" htmlFor="movie">
-              Movie
-            </label>
-          </div>
-          <div className="p-2 g-col-6">
-            <input className="form-check-input" type="radio" name="flexRadioDefault" id="series" onChange={e => setVideoType('series')}/>
-            <label className="form-check-label" htmlFor="series">
-              Series
-            </label>
-          </div>
-          <div className="p-2 g-col-6">
-            <input className="form-check-input" type="radio" name="flexRadioDefault" id="both" onChange={e => setVideoType('')}/>
-            <label className="form-check-label" htmlFor="both">
-              Both
-            </label>
-          </div>
+          <SelectVideoType id= "series" label= "Series" onChange={() => setVideoType('series')} />
+          <SelectVideoType id= "movie" label= "Movie"  onChange={() => setVideoType('movie')} />
+          <SelectVideoType id= "both" label= "Both" onChange={() => setVideoType('')} />
         </div>
         <div>
           <RangeSlider label="Movie length" step={5} min={0} max={250} value={movieLength} onChange={setMovieLength}/>
