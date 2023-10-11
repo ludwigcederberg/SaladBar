@@ -26,16 +26,20 @@ function App() {
   <div className="container py-4">
     <Header />
     <br/>
-    <Form genres={genres} keywords={keywords}/>
+    <Outlet context={{ genres, keywords }}/>
   </div>
   );
 }
 
 function Header() {
   return( 
-    <header className="container text-center">
+    <header className="container text-left">
       <div className="col"></div>
-      <div className="col h1 text-danger">Cinema Seeker</div>
+      
+      <div className="col h1 text-danger">
+      <img src={require('./images/popcorn.png')} class="img-fluid" alt="max-width: 100%" /> 
+        Cinema Seeker
+      </div>
       <div className="col"></div>
     </header>
   );

@@ -2,10 +2,15 @@ import { useState } from "react"
 import getMovies from "./fetchMovies";
 import RangeSlider from "./RangeSlider";
 import SelectGenre from "./SelectGenre";
+import { useOutletContext } from "react-router-dom";
 
 
-export default function Form ({genres, keywords}) {
+export default function Form () {
 
+
+  const props = useOutletContext();
+  const genres = props.genres
+  const keywords = props.keywords
   const [chosenWords, setChosenWords] = useState([]);
   const [genre, setGenre] = useState('action');
   const [movieLength, setMovieLength] = useState(125);
@@ -38,7 +43,6 @@ export default function Form ({genres, keywords}) {
     .filter(x => x[4].includes(videoType));
     console.log(sortedAfterTime);
     return sortedAfterTime;
-
   }
 
   async function handleSubmit(e) {
@@ -70,7 +74,7 @@ export default function Form ({genres, keywords}) {
           <button className="btn btn-primary" onClick={refreshPage}>Randomize words!</button>
         </div>
         <br/>
-        <div >
+        <div>
           <SelectGenre id="floatingSelect" label="Choose genre" options={genres} value={genre} onChange={handleSelectChange} errorMessage="Please select a genre" required/>
           <br></br>
         </div>
