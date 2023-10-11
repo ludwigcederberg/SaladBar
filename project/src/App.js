@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import tempkeywords from './keywords.js';
 import { useState } from 'react';
 import Form from './Form';
-import Spinner from './Spinner';
 import { BrowserRouter as Router, Route, Routes, NavLink, Outlet, useNavigation } from 'react-router-dom';
 
 
