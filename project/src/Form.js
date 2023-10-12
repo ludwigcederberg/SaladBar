@@ -2,7 +2,7 @@ import { useState } from "react"
 import getMovies from "./fetchMovies";
 import RangeSlider from "./RangeSlider";
 import SelectGenre from "./SelectGenre";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import SelectVideoType from "./SelectVideoType";
 
 
@@ -18,7 +18,9 @@ export default function Form () {
   const [rating, setRating] = useState(5);
   const [movieTitles, setMovieTitles] = useState([]);
   const [videoType, setVideoType] = useState('');
-  const [movieVector, setMovieVector] = useState([]);
+  const {movieVector, setMovieVector} = useOutletContext();
+  const navigate = useNavigate();
+
 
   const handleBoxChange = (e) => {
     const {id} = e.target;
@@ -53,6 +55,7 @@ export default function Form () {
     const shortMovies = filterAfterSpec(mi);
     setMovieTitles(shortMovies ? shortMovies.map(x => x[0]) : []);
     setMovieVector([...shortMovies]);
+    navigate("/movielist");
   }
 
   function refreshPage() {
@@ -96,19 +99,5 @@ export default function Form () {
         </div>
       </form>
       <br/>
-      <div id="" className="row">
-      {movieVector.map(x => 
-          <div className="col-sm-4">
-            <div className="card" style={{width: '18rem'}} >
-              <img src={x[5]} className="card-img-top" alt={x[0]}/>
-              <div className="card-body">
-                <h5 className="card-title">{x[0]}</h5>
-                <p className="card-text">{x[6]}</p>
-                <a href="#" className="btn btn-primary">Favorite</a>
-              </div>
-            </div>
-            </div>
-           ) }
-        </div>
     </div>
   )}

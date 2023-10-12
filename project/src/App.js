@@ -3,14 +3,18 @@ import 'bootstrap/dist/css/bootstrap.css';
 import tempkeywords from './keywords.js';
 import { useState } from 'react';
 import Form from './Form';
+import Spinner from './Spinner';
 import { BrowserRouter as Router, Route, Routes, NavLink, Outlet, useNavigation } from 'react-router-dom';
-
+import MovieList from './MovieList';
 
 function App() {
 
   const genres = ["Action", "Adventure", "Comedy", "Documentary", "Drama", "Fantasy", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi", "Sports", "Thriller", "Western"];
   const k = [...new Set(tempkeywords)];
   const keywords = chooseRandomWords(k, 28);
+  const navigation = useNavigation();
+  const navigationInProgress = navigation.state === 'loading' || navigation.state === 'submitting';
+  const [movieVector, setMovieVector] = useState([]);
 
   //swappar ett ord med ett annat random ord för att sen kapa listan vid #numberOfWords
   //detta ger oss unika ord varje gång vi laddar om sidan
@@ -26,7 +30,10 @@ function App() {
   <div className="container py-4">
     <Header />
     <br/>
-    <Outlet context={{ genres, keywords }}/>
+    <Navbar />
+    {navigationInProgress ?
+    <Spinner /> :
+    <Outlet context={{ genres, keywords, movieVector, setMovieVector }}/>}
   </div>
   );
 }
@@ -44,5 +51,27 @@ function Header() {
     </header>
   );
 }
+function Navbar() {
+  return(
+    <>
+    <ul className="nav nav-pills">
+      <li className='nav-item'>
+        <NavLink className="nav-link" to="">
+          Home
+        </NavLink>
+      </li>
+      <li className='nav-item'>
+        <NavLink className="nav-link" to="/search">
+          Search
+        </NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" to="/movielist">
+          Movie list
+        </NavLink>
+      </li>
+    </ul>
+    </>);
+  }
 
 export default App;

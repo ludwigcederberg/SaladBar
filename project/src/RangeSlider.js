@@ -1,7 +1,6 @@
 import React from 'react';
 
 function RangeSlider({ label, step, min, max, value, onChange }) {
-    const hej = 5
   return (
     <div>
       <label className="form-label">{label}</label>
