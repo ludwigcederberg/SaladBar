@@ -20,6 +20,7 @@ export default function Form () {
   const [videoType, setVideoType] = useState('');
   const {movieVector, setMovieVector} = useOutletContext();
   const navigate = useNavigate();
+  const [submitted, setSubmitted] = useState(false);
 
 
   const handleBoxChange = (e) => {
@@ -51,11 +52,16 @@ export default function Form () {
   async function handleSubmit(e) {
     e.preventDefault();
     e.target.classList.add("was-validated");
-    const mi = await (getMovies(chosenWords, genre));
-    const shortMovies = filterAfterSpec(mi);
-    setMovieTitles(shortMovies ? shortMovies.map(x => x[0]) : []);
-    setMovieVector([...shortMovies]);
-    navigate("/movielist");
+    setSubmitted(true);
+    if(e.target.checkValidity() && chosenWords.length <=5 && chosenWords.length >=2){
+      const mi = await (getMovies(chosenWords, genre));
+      const shortMovies = filterAfterSpec(mi);
+      setMovieTitles(shortMovies ? shortMovies.map(x => x[0]) : []);
+      setMovieVector([...shortMovies]);
+      setSubmitted(false);
+      navigate("/movielist");
+    }
+    
   }
 
   function refreshPage() {
@@ -73,6 +79,12 @@ export default function Form () {
             </label>
           </span>)}
         </div>
+        {(chosenWords.length > 5 || chosenWords.length < 2) && submitted ? 
+        <div className="text-danger"
+        > Please choose 2-5 words </div>
+        : 
+        <div></div>
+        }
         <br/>
         <div className="form-floating" key="randomize-button">
           <button className="btn btn-primary" onClick={refreshPage}>Randomize words!</button>
@@ -83,9 +95,9 @@ export default function Form () {
           <br></br>
         </div>
         <div className="container d-flex align-items-center justify-content-center grid gap-0 column-gap-3">
-          <SelectVideoType id= "series" label= "Series" checked={videoType === 'series'} onChange={() => setVideoType('series')} />
-          <SelectVideoType id= "movie" label= "Movie" checked={videoType === 'movie'} onChange={() => setVideoType('movie')} />
-          <SelectVideoType id= "both" label= "Both" checked={videoType === ''} onChange={() => setVideoType('')} />
+          <SelectVideoType id= "series" label= "Series" checked={videoType === 'series'} onChange={() => setVideoType('series')} noValidate/>
+          <SelectVideoType id= "movie" label= "Movie" checked={videoType === 'movie'} onChange={() => setVideoType('movie')}noValidate/>
+          <SelectVideoType id= "both" label= "Both" checked={videoType === ''} onChange={() => setVideoType('')} noValidate/>
         </div>
         <div>
           <RangeSlider label="Movie length" step={5} min={0} max={250} value={movieLength} onChange={setMovieLength}/>
