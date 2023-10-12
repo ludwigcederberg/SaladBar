@@ -82,7 +82,7 @@ export default function Form () {
         <div className="container d-flex align-items-center justify-content-center grid gap-0 column-gap-3">
           <SelectVideoType id= "series" label= "Series" onChange={() => setVideoType('series')} />
           <SelectVideoType id= "movie" label= "Movie"  onChange={() => setVideoType('movie')} />
-          <SelectVideoType id= "both" label= "Both" onChange={() => setVideoType('')} />
+          <SelectVideoType id= "both" label= "Both" checked = {true} onChange={() => setVideoType('')} />
         </div>
         <div>
           <RangeSlider label="Movie length" step={5} min={0} max={250} value={movieLength} onChange={setMovieLength}/>
