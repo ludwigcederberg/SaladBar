@@ -1,6 +1,6 @@
 
 export default function HomePage (){
     return (
-        <div>Hejsan</div>
+        <div>Hello Hello you have come to the Cinema Seeker</div>
     );
 }
