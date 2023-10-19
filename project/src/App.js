@@ -44,7 +44,7 @@ function Header() {
       <div className="col"></div>
       
       <div className="col h1 text-danger">
-      <img src={require('./images/popcorn.png')} class="img-fluid" alt="max-width: 100%" /> 
+      <img src={require('./images/popcorn.png')} className="img-fluid" alt="max-width: 100%" /> 
         Cinema Seeker
       </div>
       <div className="col"></div>
